@@ -1,10 +1,12 @@
 <?php
 include_once __DIR__ . '/classes/Movie.php';
+require_once __DIR__ . '/db/db_movies.php';
 
-$film = new Movie("avatar", "15-01-2010", "Sci-fi", ['Sam Worthington', 'Zoe Saldana']);
-$film1 = new Movie("harry potter e la pietra filosofale", "16-11-2001", "Fantasy", ['Daniel Radcliffe', 'Rupert Grint', 'Emma Watson']);
+$moviesList = array_map(function ($el) {
+  $movie = new Movie($el['title'], $el['releaseDate'], $el['genre'], $el['cast']);
 
-var_dump($film, $film1);
+  return $movie;
+}, $rawMoviesList);
 ?>
 
 
@@ -24,7 +26,27 @@ var_dump($film, $film1);
 
 <body>
 
+  <?php
+  require_once __DIR__ . '/partials/header.php'
+  ?>
 
+  <main>
+    <div class="container-fluid">
+      <div class="row justify-content-center">
+        <div class="col-8">
+          <h1 class="my-3">Movies:</h1>
+          <div class="cards-container my-5">
+
+            <?php
+            for ($i = 0; $i < count($moviesList); $i++) {
+              require __DIR__ . '/partials/card.php';
+            }
+            ?>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
 
   <script src=""></script><!--  JS Custom Link -->
 </body>

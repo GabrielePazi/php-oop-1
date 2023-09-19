@@ -7,7 +7,7 @@ class Movie
   public $genre;
   public $cast;
 
-  public function __construct(string $_title, string $_releaseDate, string $_genre, $_cast)
+  public function __construct(string $_title, string $_releaseDate, array $_genre, array $_cast)
   {
     $this->title = $this->set_title($_title);
     $this->releaseDate = $_releaseDate;
@@ -17,7 +17,7 @@ class Movie
 
   public function set_title($_title)
   {
-    if (!is_numeric($_title)) {
+    if (!is_numeric($_title) && isset($_title) && $_title != "") {
       return $this->formatTitle($_title);
     }
 
